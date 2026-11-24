@@ -1,3 +1,4 @@
+import { LoadingScreen } from "./LoadingScreen";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { EditorContent, useEditor } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
@@ -240,7 +241,7 @@ export default function Live({
       err(String(ex));
     }
   }
-  if (!editor) return null;
+  if (!editor) return <LoadingScreen label="Opening document…" />;
   async function addComment() {
     if (!editor || !text.trim()) return;
     const selection = editor.state.selection,
@@ -297,7 +298,7 @@ export default function Live({
   return (
     <div className="app">
       <header className="top">
-        <img className="titan-logo" src="/titan-logo.png" alt="Titan, a product of AkashaVyom Labs" />
+        <img className="titan-logo" src="/titan-icon.png" alt="Titan, a product of AkashaVyom Labs" />
         <span className="rule" />
         <button onClick={exit}>Documents</button>
         <I.ChevronRight size={14} />
@@ -518,4 +519,5 @@ export default function Live({
     </div>
   );
 }
+
 

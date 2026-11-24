@@ -1,3 +1,4 @@
+import { LoadingScreen } from "./LoadingScreen";
 import {
   lazy,
   Suspense,
@@ -58,7 +59,7 @@ export function Tool({
 }
 function Logo() {
   return (
-    <img className="titan-logo" src="/titan-logo.png" alt="Titan, a product of AkashaVyom Labs" />
+    <img className="titan-logo" src="/titan-icon.png" alt="Titan, a product of AkashaVyom Labs" />
   );
 }
 export function Modal({
@@ -227,9 +228,9 @@ export default function App() {
         </div>
       )}
       {!ready ? (
-        <main>Opening workspace…</main>
+        <LoadingScreen />
       ) : opened?.live ? (
-        <Suspense fallback={<main>Opening shared document…</main>}>
+        <Suspense fallback={<LoadingScreen label="Opening shared document…" />}>
           <Live
             key={opened.id}
             doc={opened}
@@ -767,7 +768,7 @@ function Workspace({
       editor.off("update", adjust);
     };
   }, [editor, zoom, doc.settings]);
-  if (!editor) return null;
+  if (!editor) return <LoadingScreen label="Opening document…" />;
   const heads: { text: string; pos: number; level: number }[] = [];
   editor.state.doc.descendants((n, pos) => {
     if (n.type.name === "heading")
@@ -1307,5 +1308,6 @@ function Find({
     </>
   );
 }
+
 
 
