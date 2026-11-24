@@ -11,3 +11,11 @@
 | Hosting | Local launcher, environment example, Cloudflare Pages proxy and Python hosting instructions | Public hosting, Atlas integration, multi-worker broadcasts and production load testing remain unverified. |
 
 The unit suite covers formatting, undo/redo, long documents and conditional storage writes. API tests exercise authentication, request origins, ownership, versions, collaboration permissions, DOCX parsing and two-page PDF rendering. Edge tests exercise real browser selections, imports, images, pagination, concurrent edits, reload and conflict recovery. See README.md for reproduction commands.
+
+## Expanded desktop ribbon
+
+The private editor includes Design and Mailings, with additional commands under Insert, Review, View and Help. Recipients can be pasted or loaded from CSV, edited, matched to fields and used in conditional rules. Preview and validate before merging into an editable document. The merge replaces the open template in a single undoable operation. Save as preserves a separate template. Recipient lists and saved quick parts last for the current editor session.
+
+Charts, diagrams, shapes, WordArt, signatures and screen captures insert as images. The video command inserts a link. Proofing includes browser spellcheck and checks for repeated words and extra spaces. The thesaurus opens a user-selected word in Merriam-Webster. Translation depends on browser support for on-device translation. Local formatting macros replay chosen editing commands. Split view includes a second reading pane with optional linked scrolling.
+
+Remaining differences from the reference include interactive 3D and embedded objects, embedded video playback, native window tiling, facing-page spreads, automatic label sheets, Word VBA, full grammar and markup filters, certified e-signature fields, mobile app distribution, OneNote, SharePoint, QuillBot and Paperpal integrations. The shared editor retains its smaller collaboration ribbon.

@@ -5,6 +5,7 @@ import { PaginationPlus } from "tiptap-pagination-plus";
 import katex from "katex";
 import "katex/dist/katex.min.css";
 export const richExtensions = [
+  Extension.create({name:"dropCap",addGlobalAttributes(){return [{types:["paragraph","heading"],attributes:{dropCap:{default:false,parseHTML:el=>el.hasAttribute("data-drop-cap"),renderHTML:a=>a.dropCap?{"data-drop-cap":"true"}:{}}}}]}}),
   Node.create({
     name: "mathBlock",
     group: "block",
@@ -216,3 +217,4 @@ export function escapeText(s: string) {
   span.textContent = s;
   return span.innerHTML;
 }
+

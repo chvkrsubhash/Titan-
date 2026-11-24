@@ -3,6 +3,7 @@ import { useEditorState, type Editor } from "@tiptap/react";
 import * as I from "lucide-react";
 import DOMPurify from "dompurify";
 import { importFile, wordExport } from "./More";
+import { RibbonExtras } from "./RibbonExtras";
 import { Tool } from "./App";
 import type { Doc } from "./store";
 function Group({ name, children }: { name: string; children: ReactNode }) {
@@ -219,7 +220,7 @@ export function Ribbon({
     setMarks(!marks);
   }
   const locked =
-    reading && ["Home", "Insert", "Layout", "References"].includes(tab);
+    reading && ["Home", "Insert", "Layout", "References","Mailings","Design"].includes(tab);
   return (
     <div className={"ribbon " + (locked ? "locked" : "")} inert={locked}>
       {tab === "Home" ? (
@@ -712,8 +713,10 @@ export function Ribbon({
           })}
         </Group>
       ) : (
-        <Group name="Help">{tile(I.Keyboard, "Keyboard shortcuts")}</Group>
+        tab === "Help" && <Group name="Help">{tile(I.Keyboard, "Keyboard shortcuts")}</Group>
       )}
+      {!doc.live && <RibbonExtras editor={e} tab={tab} doc={doc} update={update} notify={notify} command={command} setZoom={setZoom}/>}
     </div>
   );
 }
+

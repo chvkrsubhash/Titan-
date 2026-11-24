@@ -128,6 +128,14 @@ def pdf_bytes(data):
     try:
         html = html_document(data.content)
         settings = data.settings
+        theme = []
+        if settings.get("headingFont") in {"Georgia", "Arial", "Verdana", "Times New Roman"}:
+            theme.append("h1,h2,h3,h4{font-family:" + settings["headingFont"] + "}")
+        if re.fullmatch(r"#[0-9a-fA-F]{6}", str(settings.get("accent", ""))):
+            theme.append("h1,h2,h3,h4{color:" + settings["accent"] + "}")
+        if settings.get("spacing") in {"0pt", "6pt", "10pt", "14pt"}:
+            theme.append("p{margin-bottom:" + settings["spacing"] + "}")
+        html = html.replace("</style>", "".join(theme) + "</style>", 1)
         margin = dimension(settings.get("margin"), "22mm")
         with sync_playwright() as runtime:
             edge = (

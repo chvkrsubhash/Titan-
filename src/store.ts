@@ -40,7 +40,7 @@ export function newDoc(template = "Blank document"): Doc {
             header: "AKASHAVYOM LABS   /   PROJECT SERVICES",
             footer: "Workspace modernization proposal",
           }
-        : {},
+        : JSON.parse(localStorage.getItem("titan.design") || "{}"),
   };
 }
 export async function api(path: string, method = "GET", body?: unknown) {
@@ -152,3 +152,4 @@ export async function versions(doc: Doc, account: string): Promise<Doc[]> {
   );
   return history.reverse();
 }
+

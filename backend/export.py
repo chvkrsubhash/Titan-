@@ -22,6 +22,14 @@ def build_docx(data):
     result = Document()
     result.core_properties.title = data.title
     settings = data.settings
+    for level in range(1, 7):
+        font = result.styles[f"Heading {level}"].font
+        if settings.get("headingFont") in {"Georgia", "Arial", "Verdana", "Times New Roman"}:
+            font.name = settings["headingFont"]
+        if re.fullmatch(r"#[0-9a-fA-F]{6}", str(settings.get("accent", ""))):
+            font.color.rgb = RGBColor.from_string(settings["accent"][1:])
+    if settings.get("spacing") in {"0pt", "6pt", "10pt", "14pt"}:
+        result.styles["Normal"].paragraph_format.space_after = Pt(int(settings["spacing"][:-2]))
     section = result.sections[0]
     section.page_width = length(settings.get("width"), 210)
     section.page_height = length(settings.get("height"), 297)

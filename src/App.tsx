@@ -133,7 +133,7 @@ export default function App() {
     }
     setDocs(items);
     setAccount(email);
-    if (!email && new URLSearchParams(location.search).has("doc"))
+    if (!email && new URLSearchParams(location.search).has("doc") && !items.some(d=>d.id===new URLSearchParams(location.search).get("doc") && !d.deleted))
       setAuth(true);
     const requested = new URLSearchParams(location.search).get("doc");
     const last = requested || sessionStorage.getItem("last:" + email);
@@ -884,8 +884,10 @@ function Workspace({
           "File",
           "Home",
           "Insert",
+          "Design",
           "Layout",
           "References",
+          "Mailings",
           "Review",
           "View",
           "Help",
@@ -1308,6 +1310,8 @@ function Find({
     </>
   );
 }
+
+
 
 
 
