@@ -996,4 +996,4 @@ footer input {
 }
 .ruler{position:relative;overflow:hidden}.setting{display:flex;align-items:center;gap:12px;padding:18px 0}.setting select{background:white;border:1px solid #cdd7cd;padding:4px 8px}
 .proposal-editor{max-height:45vh;overflow:auto;padding:15px;border:1px solid #ccd8cf;margin-bottom:12px}.proposal-editor .tiptap{min-height:150px;font-size:15px}.proposal{padding:12px 0;border-bottom:1px solid #d6ded8}.proposal details{margin:8px 0}.proposal .comparison p{white-space:pre-line}.modal:has(.proposal-editor){width:min(760px,94vw)}
-.titan-logo{width:134px;height:46px;object-fit:contain;flex:none}@media(max-width:740px){.titan-logo{width:85px;height:36px}}
+.titan-logo{width:48px;height:48px;object-fit:contain;flex:none}@media(max-width:740px){.titan-logo{width:40px;height:40px}}
