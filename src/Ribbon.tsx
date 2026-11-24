@@ -153,7 +153,7 @@ export function Ribbon({
     e.view.dispatch(tr);
     painter.current = null;
   }
-  function page(change: Record<string, string>) {
+  function page(change: Record<string, any>) {
     update({ settings: { ...doc.settings, ...change } });
   }
   const select = (
@@ -246,11 +246,37 @@ export function Ribbon({
                   attrs.fontFamily || "Aptos",
                   [
                     "Aptos",
-                    "Arial",
                     "Calibri",
-                    "Georgia",
+                    "Calibri Light",
+                    "Arial",
+                    "Arial Black",
                     "Times New Roman",
+                    "Georgia",
+                    "Garamond",
+                    "Cambria",
+                    "Constantia",
+                    "Corbel",
+                    "Segoe UI",
+                    "Tahoma",
+                    "Trebuchet MS",
                     "Verdana",
+                    "Century Gothic",
+                    "Book Antiqua",
+                    "Palatino",
+                    "Courier New",
+                    "Consolas",
+                    "Inter",
+                    "Roboto",
+                    "Open Sans",
+                    "Lato",
+                    "Montserrat",
+                    "Merriweather",
+                    "Playfair Display",
+                    "Source Sans Pro",
+                    "Fira Code",
+                    "JetBrains Mono",
+                    "Comic Sans MS",
+                    "Impact",
                   ],
                   (v) => c().setFontFamily(v).run(),
                 )}
@@ -267,7 +293,9 @@ export function Ribbon({
                     "16",
                     "18",
                     "20",
+                    "22",
                     "24",
+                    "26",
                     "28",
                     "32",
                     "36",
@@ -278,6 +306,20 @@ export function Ribbon({
                     c()
                       .setFontSize(v + "pt")
                       .run(),
+                )}
+                {t(I.AArrowUp, "Increase font size", () =>
+                  c()
+                    .setFontSize(
+                      Math.min(144, (parseFloat(attrs.fontSize) || 12) + 1) + "pt",
+                    )
+                    .run(),
+                )}
+                {t(I.AArrowDown, "Decrease font size", () =>
+                  c()
+                    .setFontSize(
+                      Math.max(6, (parseFloat(attrs.fontSize) || 12) - 1) + "pt",
+                    )
+                    .run(),
                 )}
                 {t(I.RemoveFormatting, "Clear formatting", () =>
                   c().unsetAllMarks().run(),
@@ -485,6 +527,7 @@ export function Ribbon({
               {tile(I.Minus, "Delete row", () => c().deleteRow().run())}
               {tile(I.Minus, "Delete column", () => c().deleteColumn().run())}
               {tile(I.Merge, "Merge / split", () => c().mergeOrSplit().run())}
+              {tile(I.Calculator, "Formula (fx)", () => command("Table formula"))}
               {tile(I.Trash, "Delete table", () => c().deleteTable().run())}
               <input
                 type="color"
@@ -521,9 +564,18 @@ export function Ribbon({
             {select(
               "Insert symbol",
               "Symbol",
-              ["Symbol", "©", "®", "§", "±", "→", "π", "∞", "°"],
-              (v) => c().insertContent(v).run(),
+              ["Symbol", "©", "®", "™", "§", "±", "×", "÷", "≠", "≤", "≥", "→", "←", "π", "∞", "°", "€", "£", "¥", "₹", "✓", "★", "More symbols..."],
+              (v) => {
+                if (v === "More symbols...") command("Insert symbol");
+                else if (v !== "Symbol") c().insertContent(v).run();
+              },
             )}
+            {tile(I.Sparkles, "All symbols", () => command("Insert symbol"))}
+            {tile(I.Variable, "Variables", () => command("Variable tokens"))}
+            {tile(I.Workflow, "Diagrams & Callouts", () => command("Diagram studio"))}
+            {tile(I.PenTool, "Signature", () => command("Signature pad"))}
+            {tile(I.Layers, "Template Hub", () => command("Template hub"))}
+            {tile(I.Link2, "Wiki Links", () => command("Wiki links"))}
             {tile(I.Bookmark, "Bookmark")}
             {tile(I.PanelTop, "Header and footer")}
           </Group>
@@ -531,30 +583,60 @@ export function Ribbon({
       ) : tab === "Layout" ? (
         <>
           <Group name="Page setup">
-            {tile(I.Settings2, "Page settings")}
-            {select(
-              "Paper size",
-              doc.settings.size || "A4",
-              ["A4", "Letter", "Legal"],
-              (v) =>
-                page({
-                  size: v,
-                  width: v === "A4" ? "210mm" : "8.5in",
-                  height:
-                    v === "A4" ? "297mm" : v === "Legal" ? "14in" : "11in",
-                }),
-            )}
-            {tile(I.RectangleHorizontal, "Rotate page", () =>
-              page({
-                width: doc.settings.height || "297mm",
-                height: doc.settings.width || "210mm",
-              }),
-            )}
+            {tile(I.Settings2, "Page setup", () => command("Page settings"))}
             {select(
               "Margins",
-              doc.settings.margin || "22mm",
-              ["12mm", "18mm", "22mm", "25.4mm", "32mm"],
-              (v) => page({ margin: v }),
+              doc.settings.margin || "Margins",
+              ["Margins", "Normal (1 in)", "Narrow (0.5 in)", "Moderate", "Wide (2 in)", "Custom Margins..."],
+              (v) => {
+                if (v === "Custom Margins...") command("Page settings");
+                else if (v.startsWith("Normal")) page({ margin: "25.4mm", marginTop: "25.4mm", marginBottom: "25.4mm", marginLeft: "25.4mm", marginRight: "25.4mm" });
+                else if (v.startsWith("Narrow")) page({ margin: "12.7mm", marginTop: "12.7mm", marginBottom: "12.7mm", marginLeft: "12.7mm", marginRight: "12.7mm" });
+                else if (v.startsWith("Moderate")) page({ margin: "25.4mm", marginTop: "25.4mm", marginBottom: "25.4mm", marginLeft: "19.1mm", marginRight: "19.1mm" });
+                else if (v.startsWith("Wide")) page({ margin: "25.4mm", marginTop: "25.4mm", marginBottom: "25.4mm", marginLeft: "50.8mm", marginRight: "50.8mm" });
+              },
+            )}
+            {select(
+              "Orientation",
+              doc.settings.orientation ? (doc.settings.orientation === "landscape" ? "Landscape" : "Portrait") : (parseFloat(doc.settings.width || "210") > parseFloat(doc.settings.height || "297") ? "Landscape" : "Portrait"),
+              ["Orientation", "Portrait", "Landscape"],
+              (v) => {
+                const w = parseFloat(doc.settings.width || "210");
+                const h = parseFloat(doc.settings.height || "297");
+                if (v === "Portrait" && w > h) {
+                  page({ orientation: "portrait", width: doc.settings.height || "297mm", height: doc.settings.width || "210mm" });
+                } else if (v === "Landscape" && w < h) {
+                  page({ orientation: "landscape", width: doc.settings.height || "297mm", height: doc.settings.width || "210mm" });
+                }
+              },
+            )}
+            {select(
+              "Paper size",
+              doc.settings.paperSize || doc.settings.size || "A4",
+              ["Paper size", "Letter (8.5 × 11 in)", "A4 (210 × 297 mm)", "Legal (8.5 × 14 in)", "Executive", "A3", "A5", "B5", "More Paper Sizes..."],
+              (v) => {
+                if (v === "More Paper Sizes...") command("Page settings");
+                else if (v.startsWith("Letter")) page({ paperSize: "Letter", size: "Letter", width: "215.9mm", height: "279.4mm" });
+                else if (v.startsWith("A4")) page({ paperSize: "A4", size: "A4", width: "210mm", height: "297mm" });
+                else if (v.startsWith("Legal")) page({ paperSize: "Legal", size: "Legal", width: "215.9mm", height: "355.6mm" });
+                else if (v.startsWith("Executive")) page({ paperSize: "Executive", size: "Executive", width: "184.1mm", height: "266.7mm" });
+                else if (v === "A3") page({ paperSize: "A3", size: "A3", width: "297mm", height: "420mm" });
+                else if (v === "A5") page({ paperSize: "A5", size: "A5", width: "148mm", height: "210mm" });
+                else if (v === "B5") page({ paperSize: "B5", size: "B5", width: "176mm", height: "250mm" });
+              },
+            )}
+            {select(
+              "Columns",
+              doc.settings.columns ? (doc.settings.columns === 1 ? "One" : doc.settings.columns === 2 ? "Two" : doc.settings.columns === 3 ? "Three" : String(doc.settings.columns)) : "Columns",
+              ["Columns", "One", "Two", "Three", "Left", "Right", "More Columns..."],
+              (v) => {
+                if (v === "More Columns...") command("Page settings");
+                else if (v === "One") page({ columns: 1 });
+                else if (v === "Two") page({ columns: 2 });
+                else if (v === "Three") page({ columns: 3 });
+                else if (v === "Left") page({ columns: "left" });
+                else if (v === "Right") page({ columns: "right" });
+              },
             )}
           </Group>
           <Group name="Paragraph">
@@ -661,6 +743,8 @@ export function Ribbon({
           {tile(I.Search, "Find and replace")}
           {tile(I.Hash, "Document statistics")}
           {tile(I.FilePenLine, "Suggested changes")}
+          {tile(I.ShieldAlert, "Redaction", () => command("Redact PII"))}
+          {tile(I.Timer, "Writing Habits & Sprints", () => command("Writing habits"))}
           {tile(I.GitCompare, "Compare revisions")}
           {tile(I.History, "Version history")}
         </Group>
@@ -705,6 +789,9 @@ export function Ribbon({
               ),
             ),
           )}
+          {tile(I.Eye, "Zen mode")}
+          {tile(I.AlignCenter, "Typewriter")}
+          {tile(I.Presentation, "Slides", () => command("Presentation mode"))}
           {tile(I.Maximize, "Full screen", () => {
             (document.fullscreenElement
               ? document.exitFullscreen()
@@ -713,7 +800,12 @@ export function Ribbon({
           })}
         </Group>
       ) : (
-        tab === "Help" && <Group name="Help">{tile(I.Keyboard, "Keyboard shortcuts")}</Group>
+        tab === "Help" && (
+          <Group name="Help and documentation">
+            {tile(I.HelpCircle, "Help & Docs", () => command("Help"))}
+            {tile(I.Keyboard, "Keyboard shortcuts", () => command("Keyboard shortcuts"))}
+          </Group>
+        )
       )}
       {!doc.live && <RibbonExtras editor={e} tab={tab} doc={doc} update={update} notify={notify} command={command} setZoom={setZoom}/>}
     </div>

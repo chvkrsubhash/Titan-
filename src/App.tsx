@@ -27,6 +27,18 @@ import { More, Comments, extraDialogs } from "./More";
 import { Compare } from "./Compare";
 import { Suggestions } from "./Suggestions";
 import { Ribbon } from "./Ribbon";
+import { SymbolsDialog } from "./Symbols";
+import { PageSetup } from "./PageSetup";
+import { HelpCenter } from "./HelpCenter";
+import { TableFormula } from "./TableFormula";
+import { VariableTokens } from "./VariableTokens";
+import { DiagramStudio } from "./DiagramStudio";
+import { PresentationMode } from "./PresentationMode";
+import { SignaturePad } from "./SignaturePad";
+import { RedactionTool } from "./RedactionTool";
+import { WritingHabits } from "./WritingHabits";
+import { TemplateHub } from "./TemplateHub";
+import { WikiLinks } from "./WikiLinks";
 import "./style.css";
 
 const Live = lazy(() => import("./Live"));
@@ -544,7 +556,9 @@ function Workspace({
     [history, setHistory] = useState<Doc[]>([]),
     [search, setSearch] = useState(""),
     [matches, setMatches] = useState(0),
-    [highlight, setHighlight] = useState(0);
+    [highlight, setHighlight] = useState(0),
+    [zen, setZen] = useState(false),
+    [typewriter, setTypewriter] = useState(false);
   const [comments, setComments] = useState(false),
     [pg, setPg] = useState([1, 1]);
   const frame = useRef<HTMLDivElement>(null),
@@ -687,18 +701,22 @@ function Workspace({
   useEffect(() => {
     if (!editor) return;
     const s = doc.settings,
-      m = px(s.margin || "22mm");
+      m = px(s.margin || "22mm"),
+      mLeft = s.marginLeft ? px(s.marginLeft) : m,
+      mRight = s.marginRight ? px(s.marginRight) : m,
+      mTop = s.marginTop ? px(s.marginTop) : s.headerSpace ? px(s.headerSpace + "mm") : m * 0.65,
+      mBottom = s.marginBottom ? px(s.marginBottom) : s.footerSpace ? px(s.footerSpace + "mm") : m * 0.65;
     editor
       .chain()
       .updatePageWidth(px(s.width || "210mm"))
       .updatePageHeight(px(s.height || "297mm"))
       .updateMargins({
-        left: m,
-        right: m,
-        top: s.headerSpace ? px(s.headerSpace + "mm") : m * 0.65,
-        bottom: s.footerSpace ? px(s.footerSpace + "mm") : m * 0.65,
+        left: mLeft,
+        right: mRight,
+        top: mTop,
+        bottom: mBottom,
       })
-      .updateContentMargins({ top: m * 0.35, bottom: m * 0.35 })
+      .updateContentMargins({ top: mTop * 0.35, bottom: mBottom * 0.35 })
       .updateHeaderContent(escapeText(s.header || ""), "")
       .updateFooterContent(
         escapeText(s.footer || ""),
@@ -732,6 +750,40 @@ function Workspace({
       view.removeEventListener("scroll", read);
     };
   }, [editor]);
+  useEffect(() => {
+    if (!editor || !typewriter) return;
+    const centerCursor = () => {
+      try {
+        const { from } = editor.state.selection;
+        const dom =
+          (editor.view.nodeDOM(from) as any) ||
+          (editor.view.domAtPos(from).node as any);
+        const target: HTMLElement | null =
+          dom instanceof HTMLElement ? dom : (dom?.parentElement as HTMLElement | null);
+        if (target && frame.current) {
+          const frameRect = frame.current.getBoundingClientRect();
+          const targetRect = target.getBoundingClientRect();
+          const offset =
+            targetRect.top - frameRect.top - frameRect.height / 2 + targetRect.height / 2;
+          frame.current.scrollBy({ top: offset, behavior: "smooth" });
+        }
+      } catch {}
+    };
+    editor.on("selectionUpdate", centerCursor);
+    editor.on("update", centerCursor);
+    return () => {
+      editor.off("selectionUpdate", centerCursor);
+      editor.off("update", centerCursor);
+    };
+  }, [editor, typewriter]);
+  useEffect(() => {
+    if (!zen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setZen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [zen]);
   useEffect(() => {
     if (!editor) return;
     let raf = 0;
@@ -780,6 +832,14 @@ function Workspace({
       setComments(!comments);
       return;
     }
+    if (name === "Zen mode" || name === "Focus") {
+      setZen((z) => !z);
+      return;
+    }
+    if (name === "Typewriter") {
+      setTypewriter((t) => !t);
+      return;
+    }
     if (name === "Documents") return void leave(dashboard);
     if (name === "New document") return newDocument();
     if (name === "Save") return void flush();
@@ -824,7 +884,17 @@ function Workspace({
   const title = doc.title;
   const profileName = account ? account.slice(0, 2).toUpperCase() : "AV";
   return (
-    <div className={"app " + (reading ? "reading" : "")}>
+    <div className={"app " + (reading ? "reading " : "") + (zen ? "workspace-focus " : "")}>
+      {zen && (
+        <button
+          type="button"
+          className="zen-exit-pill"
+          onClick={() => setZen(false)}
+          title="Exit Focus Mode (Esc)"
+        >
+          <I.EyeOff size={14} /> Exit Zen Mode <kbd style={{ background: "rgba(255,255,255,0.2)", padding: "1px 5px", borderRadius: "3px", fontSize: "10px" }}>Esc</kbd>
+        </button>
+      )}
       <header className="top">
         <Logo />
         <span className="rule" />
@@ -991,7 +1061,7 @@ function Workspace({
                 </div>
               )}
               <article
-                className="paper"
+                className={`paper ${doc.settings.columns && doc.settings.columns !== 1 ? `cols-${doc.settings.columns}` : ""}`}
                 style={{
                   minHeight: doc.settings.height || "297mm",
                   padding: 0,
@@ -1001,7 +1071,9 @@ function Workspace({
                     doc.settings.pageBorder !== "none"
                       ? "1px " + doc.settings.pageBorder + " #819488"
                       : undefined,
-                }}
+                  "--doc-col-gap": doc.settings.columnGap || "20mm",
+                  "--doc-col-rule": doc.settings.columnRule ? "1px solid #c9d5cd" : "none",
+                } as any}
               >
                 <EditorContent editor={editor} />
               </article>
@@ -1019,21 +1091,83 @@ function Workspace({
         )}
       </section>
       <footer>
-        <button onClick={() => setOutline(!outline)}>
+        <button onClick={() => setOutline(!outline)} title="Toggle Outline Navigation">
           <I.PanelLeft size={14} />
         </button>
         <span>
           Page {pg[0]} of {pg[1]}
         </span>
         <i />
-        <span>{words} words</span>
+        <button
+          type="button"
+          onClick={() => dialog("Document statistics")}
+          style={{ padding: 0, textDecoration: "none", color: "inherit", display: "inline-flex", alignItems: "center", gap: "6px" }}
+          title="Click to view detailed statistics"
+        >
+          <span>{words} words</span>
+          <i />
+          <span>{editor.getText().length} chars</span>
+          <i />
+          <span>{Math.max(1, Math.ceil(words / 200))} min read</span>
+        </button>
         <i />
-        <span>{editor.getText().length} characters</span>
-        <i />
-        <span>English</span>
+        <span
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "5px",
+            fontSize: "12px",
+            color: status === "Saved" ? "#226a48" : status === "Saving…" ? "#b58105" : "#b03a2e",
+            fontWeight: 500,
+          }}
+          title={`Save status: ${status}`}
+        >
+          <span
+            style={{
+              width: "7px",
+              height: "7px",
+              borderRadius: "50%",
+              background: status === "Saved" ? "#22c55e" : status === "Saving…" ? "#f59e0b" : "#ef4444",
+            }}
+          />
+          {status === "Saved" ? `Saved to ${account ? "Cloud" : "Device"}` : status}
+        </span>
         <div className="push" />
-        <I.FileText size={14} />
-        <span>Print layout</span>
+        <button
+          type="button"
+          onClick={() => setTypewriter(!typewriter)}
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "4px",
+            padding: "2px 8px",
+            borderRadius: "4px",
+            background: typewriter ? "#d2e4da" : "transparent",
+            color: typewriter ? "#174a36" : "inherit",
+          }}
+          title="Keep active line vertically centered while typing"
+        >
+          <I.AlignCenter size={13} />
+          <span>Typewriter</span>
+        </button>
+        <i />
+        <button
+          type="button"
+          onClick={() => setZen(!zen)}
+          style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: "4px",
+            padding: "2px 8px",
+            borderRadius: "4px",
+            background: zen ? "#d2e4da" : "transparent",
+            color: zen ? "#174a36" : "inherit",
+          }}
+          title="Distraction-free writing mode"
+        >
+          <I.Eye size={13} />
+          <span>Zen Focus</span>
+        </button>
         <i />
         <Tool
           icon={I.Minus}
@@ -1105,7 +1239,53 @@ function Workspace({
           </button>
         </Modal>
       )}
-      {modal === "Suggested changes" ? (
+      {modal === "Presentation mode" || modal === "Slides" ? (
+        <PresentationMode editor={editor} close={() => dialog("")} />
+      ) : modal === "Signature pad" || modal === "Signature" ? (
+        <Modal title="Digital Signature Pad" close={() => dialog("")}>
+          <SignaturePad editor={editor} close={() => dialog("")} notify={notify} />
+        </Modal>
+      ) : modal === "Redact PII" || modal === "Redaction" ? (
+        <Modal title="Smart PII Redaction Tool" close={() => dialog("")}>
+          <RedactionTool editor={editor} close={() => dialog("")} notify={notify} />
+        </Modal>
+      ) : modal === "Writing habits" || modal === "Habits" ? (
+        <Modal title="Writing Habits & Pomodoro Sprint" close={() => dialog("")}>
+          <WritingHabits currentWordCount={words} close={() => dialog("")} notify={notify} />
+        </Modal>
+      ) : modal === "Template hub" || modal === "Templates" ? (
+        <Modal title="Titan Template Hub & Marketplace" close={() => dialog("")}>
+          <TemplateHub editor={editor} close={() => dialog("")} notify={notify} />
+        </Modal>
+      ) : modal === "Wiki links" || modal === "Wiki" ? (
+        <Modal title="Bi-Directional Wiki Links & Scratchpad" close={() => dialog("")}>
+          <WikiLinks editor={editor} close={() => dialog("")} notify={notify} />
+        </Modal>
+      ) : modal === "Insert symbol" || modal === "More symbols" ? (
+        <Modal title="Insert Symbol" close={() => dialog("")}>
+          <SymbolsDialog editor={editor} close={() => dialog("")} />
+        </Modal>
+      ) : modal === "Table formula" || modal === "Formula" ? (
+        <Modal title="Table Formula (fx)" close={() => dialog("")}>
+          <TableFormula editor={editor} close={() => dialog("")} notify={notify} />
+        </Modal>
+      ) : modal === "Variable tokens" || modal === "Variables" ? (
+        <Modal title="Document Variables (Placeholders)" close={() => dialog("")}>
+          <VariableTokens editor={editor} close={() => dialog("")} notify={notify} />
+        </Modal>
+      ) : modal === "Diagram studio" || modal === "Diagram" ? (
+        <Modal title="Diagram & Callout Studio" close={() => dialog("")}>
+          <DiagramStudio editor={editor} close={() => dialog("")} notify={notify} />
+        </Modal>
+      ) : modal === "Page settings" || modal === "Page setup" ? (
+        <Modal title="Page Setup" close={() => dialog("")}>
+          <PageSetup doc={doc} update={update} close={() => dialog("")} />
+        </Modal>
+      ) : modal === "Help" || modal === "Documentation" ? (
+        <Modal title="Documentation & Help Center" close={() => dialog("")}>
+          <HelpCenter close={() => dialog("")} />
+        </Modal>
+      ) : modal === "Suggested changes" ? (
         <Suggestions editor={editor} doc={doc} update={update} author={account} close={()=>dialog("")}/>
       ) : extraDialogs.includes(modal) ? (
         <More
@@ -1239,7 +1419,13 @@ function Workspace({
           " " +
           (doc.settings.height || "297mm") +
           ";margin:" +
-          (doc.settings.margin || "22mm") +
+          (doc.settings.marginTop || doc.settings.margin || "22mm") +
+          " " +
+          (doc.settings.marginRight || doc.settings.margin || "22mm") +
+          " " +
+          (doc.settings.marginBottom || doc.settings.margin || "22mm") +
+          " " +
+          (doc.settings.marginLeft || doc.settings.margin || "22mm") +
           ";}"}
       </style>
     </div>
