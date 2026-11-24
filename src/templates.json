@@ -1,0 +1,778 @@
+{
+  "Blank document": [
+    {
+      "type": "paragraph",
+      "content": []
+    }
+  ],
+  "Project proposal": [
+    {
+      "type": "heading",
+      "content": [
+        {
+          "type": "text",
+          "text": "Workspace modernization"
+        }
+      ],
+      "attrs": {
+        "level": 1
+      }
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Project proposal for the design and delivery of a connected workplace."
+        }
+      ]
+    },
+    {
+      "type": "horizontalRule"
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Prepared by   AkashaVyom Labs     •     Document type   Project proposal"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "content": [
+        {
+          "type": "text",
+          "text": "Executive summary"
+        }
+      ],
+      "attrs": {
+        "level": 2
+      }
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "This proposal sets out a practical plan to modernize the shared workspace. The project brings document creation, review, and delivery into one consistent workflow across teams."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "content": [
+        {
+          "type": "text",
+          "text": "Project objectives"
+        }
+      ],
+      "attrs": {
+        "level": 2
+      }
+    },
+    {
+      "type": "bulletList",
+      "content": [
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Establish a single workspace for project documentation."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Simplify the review and approval process."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "listItem",
+          "content": [
+            {
+              "type": "paragraph",
+              "content": [
+                {
+                  "type": "text",
+                  "text": "Give every team clear ownership of its deliverables."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "content": [
+        {
+          "type": "text",
+          "text": "Scope of work"
+        }
+      ],
+      "attrs": {
+        "level": 2
+      }
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "The first phase covers discovery, workspace design, and a pilot rollout. Findings from the pilot will inform training and the implementation schedule."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "content": [
+        {
+          "type": "text",
+          "text": "Delivery milestones"
+        }
+      ],
+      "attrs": {
+        "level": 2
+      }
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Discovery and alignment · Design review · Pilot release · Team rollout"
+        }
+      ]
+    }
+  ],
+  "Resume": [
+    {
+      "type": "heading",
+      "content": [
+        {
+          "type": "text",
+          "text": "Your name"
+        }
+      ],
+      "attrs": {
+        "level": 1
+      }
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Professional title · Email · Location"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "content": [
+        {
+          "type": "text",
+          "text": "Profile"
+        }
+      ],
+      "attrs": {
+        "level": 2
+      }
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Summarize your experience and areas of expertise."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "content": [
+        {
+          "type": "text",
+          "text": "Experience"
+        }
+      ],
+      "attrs": {
+        "level": 2
+      }
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Role · Organization · Dates"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "content": [
+        {
+          "type": "text",
+          "text": "Education"
+        }
+      ],
+      "attrs": {
+        "level": 2
+      }
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Degree · Institution"
+        }
+      ]
+    }
+  ],
+  "Cover letter": [
+    {
+      "type": "heading",
+      "content": [
+        {
+          "type": "text",
+          "text": "Cover letter"
+        }
+      ],
+      "attrs": {
+        "level": 1
+      }
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Dear Hiring Manager,"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "I am applying for the position of …"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Sincerely,"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Your name"
+        }
+      ]
+    }
+  ],
+  "Business letter": [
+    {
+      "type": "heading",
+      "content": [
+        {
+          "type": "text",
+          "text": "Business correspondence"
+        }
+      ],
+      "attrs": {
+        "level": 1
+      }
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Recipient name and address"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Dear …,"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "I am writing regarding …"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Kind regards,"
+        }
+      ]
+    }
+  ],
+  "Meeting minutes": [
+    {
+      "type": "heading",
+      "content": [
+        {
+          "type": "text",
+          "text": "Meeting minutes"
+        }
+      ],
+      "attrs": {
+        "level": 1
+      }
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Date · Facilitator · Attendees"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "content": [
+        {
+          "type": "text",
+          "text": "Agenda"
+        }
+      ],
+      "attrs": {
+        "level": 2
+      }
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Topics for discussion"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "content": [
+        {
+          "type": "text",
+          "text": "Decisions"
+        }
+      ],
+      "attrs": {
+        "level": 2
+      }
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Record each decision and its rationale."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "content": [
+        {
+          "type": "text",
+          "text": "Action items"
+        }
+      ],
+      "attrs": {
+        "level": 2
+      }
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Owner · Action · Due date"
+        }
+      ]
+    }
+  ],
+  "Technical report": [
+    {
+      "type": "heading",
+      "content": [
+        {
+          "type": "text",
+          "text": "Technical report"
+        }
+      ],
+      "attrs": {
+        "level": 1
+      }
+    },
+    {
+      "type": "heading",
+      "content": [
+        {
+          "type": "text",
+          "text": "Summary"
+        }
+      ],
+      "attrs": {
+        "level": 2
+      }
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Describe the system under investigation."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "content": [
+        {
+          "type": "text",
+          "text": "Method"
+        }
+      ],
+      "attrs": {
+        "level": 2
+      }
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Environment and procedure"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "content": [
+        {
+          "type": "text",
+          "text": "Results"
+        }
+      ],
+      "attrs": {
+        "level": 2
+      }
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Observations and findings"
+        }
+      ]
+    }
+  ],
+  "Academic report": [
+    {
+      "type": "heading",
+      "content": [
+        {
+          "type": "text",
+          "text": "Research title"
+        }
+      ],
+      "attrs": {
+        "level": 1
+      }
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Author · Institution"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "content": [
+        {
+          "type": "text",
+          "text": "Abstract"
+        }
+      ],
+      "attrs": {
+        "level": 2
+      }
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Research question and findings"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "content": [
+        {
+          "type": "text",
+          "text": "Methodology"
+        }
+      ],
+      "attrs": {
+        "level": 2
+      }
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Describe the research design."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "content": [
+        {
+          "type": "text",
+          "text": "Discussion"
+        }
+      ],
+      "attrs": {
+        "level": 2
+      }
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Interpret the results."
+        }
+      ]
+    }
+  ],
+  "Invoice": [
+    {
+      "type": "heading",
+      "content": [
+        {
+          "type": "text",
+          "text": "Invoice"
+        }
+      ],
+      "attrs": {
+        "level": 1
+      }
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Invoice number · Issue date · Due date"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "content": [
+        {
+          "type": "text",
+          "text": "Bill to"
+        }
+      ],
+      "attrs": {
+        "level": 2
+      }
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Client and billing address"
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "content": [
+        {
+          "type": "text",
+          "text": "Services"
+        }
+      ],
+      "attrs": {
+        "level": 2
+      }
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Description · Quantity · Unit price · Amount"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Total due: "
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "content": [
+        {
+          "type": "text",
+          "text": "Payment details"
+        }
+      ],
+      "attrs": {
+        "level": 2
+      }
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Payment method and terms"
+        }
+      ]
+    }
+  ],
+  "Company memorandum": [
+    {
+      "type": "heading",
+      "content": [
+        {
+          "type": "text",
+          "text": "Memorandum"
+        }
+      ],
+      "attrs": {
+        "level": 1
+      }
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "To: All staff"
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "From: "
+        }
+      ]
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Subject: "
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "content": [
+        {
+          "type": "text",
+          "text": "Purpose"
+        }
+      ],
+      "attrs": {
+        "level": 2
+      }
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "State the purpose of the memorandum."
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "content": [
+        {
+          "type": "text",
+          "text": "Next steps"
+        }
+      ],
+      "attrs": {
+        "level": 2
+      }
+    },
+    {
+      "type": "paragraph",
+      "content": [
+        {
+          "type": "text",
+          "text": "Responsibilities and deadlines"
+        }
+      ]
+    }
+  ]
+}
